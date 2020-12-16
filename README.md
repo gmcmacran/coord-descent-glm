@@ -17,3 +17,7 @@ Any supervised learning model can be defined in two pieces:
 This library uses [coordinate descent](https://en.wikipedia.org/wiki/Coordinate_descent) as the optimizer and 
 [negative log likelihoods](https://en.wikipedia.org/wiki/Likelihood_function) as the loss functions.
 
+## What does this library depend on?
+* `numpy`: for matrices
+* `scipy`: for a few mathematical operations
+
