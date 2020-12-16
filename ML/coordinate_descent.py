@@ -46,7 +46,7 @@ def coordinate_descent(X, Y, loss, shuffle, step):
             loss_decrease = loss(Y, X, B_decrease)
             loss_increase = loss(Y, X, B_increase)
             
-            # Update B_current
+            # Update B
             if loss_decrease < loss_current:
                 B = B_decrease.copy()
             elif loss_increase < loss_current:
