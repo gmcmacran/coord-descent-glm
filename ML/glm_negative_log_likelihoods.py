@@ -9,8 +9,24 @@
 import numpy as np
 from scipy.special import factorial, gamma
 
+
+def SSE(Y, X, B):
+    Y_Hat = np.matmul(X, B)
+    Y_Hat.reshape([Y_Hat.shape[0],1])
+    loss = np.sum( np.power(Y - Y_Hat, 2))
+    
+    return loss
+
+########################################
+# Mathematical background
+# Step 1 Calculate eta
+# Step 2 Inverse link
+# step 3 Calculate negative log likelihood
+########################################
+
 def neg_ll_gaussian(Y, X, B):
     Y_Hat = np.matmul(X, B)
+    Y_Hat.reshape([Y_Hat.shape[0],1])
     Y_Hat = Y_Hat # Inverse link
     
     n = X.shape[0]
@@ -24,6 +40,7 @@ def neg_ll_gaussian(Y, X, B):
 
 def neg_ll_poisson(Y, X, B):
     Y_Hat = np.matmul(X, B)
+    Y_Hat.reshape([Y_Hat.shape[0],1])
     Y_Hat = np.exp(Y_Hat) # Inverse link
     
     ll = Y * np.log(Y_Hat) - Y_Hat - np.log(factorial(Y))
@@ -34,7 +51,8 @@ def neg_ll_poisson(Y, X, B):
 
 def neg_ll_bernoulli(Y, X, B):
     Y_Hat = np.matmul(X, B)
-    Y_Hat = np.exp(Y_Hat) / (1 + np.exp(Y_Hat))
+    Y_Hat.reshape([Y_Hat.shape[0],1])
+    Y_Hat = np.exp(Y_Hat) / (1 + np.exp(Y_Hat)) # Inverse link
     
     ll = Y * np.log(Y_Hat) + (1 - Y) * np.log(1 - Y_Hat)
     ll = np.sum(ll)
@@ -44,7 +62,8 @@ def neg_ll_bernoulli(Y, X, B):
 
 def neg_ll_gamma(Y, X, B):
     Y_Hat = np.matmul(X, B)
-    Y_Hat = np.power(Y_Hat, -1)
+    Y_Hat.reshape([Y_Hat.shape[0],1])
+    Y_Hat = np.power(Y_Hat, -1) # Inverse link
     
     # Using method of moments estimate
     # MLE does not have closed form.

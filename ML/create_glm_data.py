@@ -12,9 +12,16 @@ import numpy as np
 import glm_negative_log_likelihoods as losses
 import coordinate_descent as cd
 
+# Helper function to create dataset with
+# true relationship between Y and X follows
+# the glm model exactly.
+#
+# dist - string. One of "gaussian", "poisson", "bernoulli", "gamma"
 def create_glm_dataset(dist):
     
-    X = np.random.rand(500, 1)
+    np.random.seed(0)
+    
+    X = np.random.rand(5000, 1) * 3
     X = np.hstack([X, np.ones([X.shape[0], 1])])
     
     B = np.ndarray([2, 1])
@@ -25,12 +32,12 @@ def create_glm_dataset(dist):
         B[1, 0] = 3
         
         mu = np.matmul(X, B)
-        sigma = .5
+        sigma = 1
         Y = np.random.normal(mu, sigma)
         
     elif dist == "poisson":
-        B[0, 0] = 2
-        B[1, 0] = 3
+        B[0, 0] = .5
+        B[1, 0] = 1
         
         mu = np.matmul(X, B)
         mu = np.exp(mu)
@@ -50,12 +57,21 @@ def create_glm_dataset(dist):
         
         mu = np.matmul(X, B)
         mu = 1 / mu
-        Y = np.random.gamma(mu /.05, 1 /.05)
+        Y = np.random.gamma(mu /.05, .05)
         
     X = np.delete(X, 1, axis = 1)
         
     return X, Y
 
 X, Y = create_glm_dataset("gaussian")
-B_start = np.array([0.1, 0.1])
-B_end = cd.glm_gaussian(X, Y, B_start)
+B = cd.glm_SSE(X, Y)
+B = cd.glm_gaussian(X, Y)
+
+X, Y = create_glm_dataset("poisson")
+B = cd.glm_poisson(X, Y)
+
+X, Y = create_glm_dataset("bernoulli")
+B = cd.glm_bernoulli(X, Y)
+
+X, Y = create_glm_dataset("gamma")
+B = cd.glm_gamma(X, Y)
