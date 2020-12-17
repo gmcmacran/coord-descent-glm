@@ -5,18 +5,15 @@
 # creates ideal data for a generalized 
 # linear model
 ########################################
+import pytest
 import numpy as np
-
-# WIll be converting to pytest in future
-# Right now, just manually testing here.
-import glm_negative_log_likelihoods as losses
-import coordinate_descent as cd
 
 # Helper function to create dataset with
 # true relationship between Y and X follows
 # the glm model exactly.
 #
 # dist - string. One of "gaussian", "poisson", "bernoulli", "gamma"
+# @pytest.fixture
 def create_glm_dataset(dist):
     
     np.random.seed(0)
@@ -62,16 +59,3 @@ def create_glm_dataset(dist):
     X = np.delete(X, 1, axis = 1)
         
     return X, Y
-
-X, Y = create_glm_dataset("gaussian")
-B = cd.glm_SSE(X, Y)
-B = cd.glm_gaussian(X, Y)
-
-X, Y = create_glm_dataset("poisson")
-B = cd.glm_poisson(X, Y)
-
-X, Y = create_glm_dataset("bernoulli")
-B = cd.glm_bernoulli(X, Y)
-
-X, Y = create_glm_dataset("gamma")
-B = cd.glm_gamma(X, Y)

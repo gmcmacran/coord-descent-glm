@@ -4,7 +4,7 @@
 # This file defines optimizer functions 
 ########################################
 import numpy as np
-import glm_negative_log_likelihoods as losses
+import ML.glm_negative_log_likelihoods as losses
 
 # X predictors. numpy array
 # Y response. numpy array
@@ -18,9 +18,6 @@ def coordinate_descent(X, Y, loss, shuffle, step):
     
     # set starting values
     B = np.ones([X.shape[1], 1], dtype = 'float64')
-    # B[0, 0] = 2
-    # B[1, 0] = 3
-    
     
     # optimize
     for i in range(0, 1000):
@@ -70,5 +67,3 @@ glm_gaussian = make_glm_model(loss = losses.neg_ll_gaussian, shuffle = True, ste
 glm_poisson = make_glm_model(loss = losses.neg_ll_poisson, shuffle = True, step = .1)
 glm_bernoulli = make_glm_model(loss = losses.neg_ll_bernoulli, shuffle = True, step = .1)
 glm_gamma = make_glm_model(loss = losses.neg_ll_gamma, shuffle = True, step = .1)
-
-glm_SSE = make_glm_model(loss = losses.SSE, shuffle = True, step = .1)
