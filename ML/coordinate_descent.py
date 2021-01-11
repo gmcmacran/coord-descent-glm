@@ -63,6 +63,7 @@ def make_glm_model(loss, shuffle, step):
         return(coordinate_descent(X, Y, loss, shuffle, step))
     return model
 
+# Define models
 glm_gaussian = make_glm_model(loss = losses.neg_ll_gaussian, shuffle = True, step = .1)
 glm_poisson = make_glm_model(loss = losses.neg_ll_poisson, shuffle = True, step = .1)
 glm_bernoulli = make_glm_model(loss = losses.neg_ll_bernoulli, shuffle = True, step = .1)
