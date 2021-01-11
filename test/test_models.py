@@ -37,8 +37,3 @@ def test_gamma_model():
                       [3]])
     
     np.testing.assert_array_almost_equal(B, target, 1)
-
-test_gaussian_model()
-test_poisson_model()
-test_bernoulli_model()
-test_gamma_model()

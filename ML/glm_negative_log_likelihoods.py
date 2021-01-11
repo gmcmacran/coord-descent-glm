@@ -9,7 +9,6 @@
 import numpy as np
 from scipy.special import factorial, gamma
 
-
 def SSE(Y, X, B):
     Y_Hat = np.matmul(X, B)
     Y_Hat.reshape([Y_Hat.shape[0],1])

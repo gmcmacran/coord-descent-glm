@@ -5,7 +5,6 @@
 # creates ideal data for a generalized 
 # linear model
 ########################################
-import pytest
 import numpy as np
 
 # Helper function to create dataset with
@@ -13,7 +12,6 @@ import numpy as np
 # the glm model exactly.
 #
 # dist - string. One of "gaussian", "poisson", "bernoulli", "gamma"
-# @pytest.fixture
 def create_glm_dataset(dist):
     
     np.random.seed(0)
